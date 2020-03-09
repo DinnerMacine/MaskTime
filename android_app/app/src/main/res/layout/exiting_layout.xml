@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/exiting_background"
+    android:background="@drawable/background_green"
+    >
+
+    <ImageView
+        android:id="@+id/icon_mask"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_mask_100"
+        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/text_time_used"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/text_time_used"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="32dp"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/text_time_ment"
+        app:layout_constraintTop_toBottomOf="@id/icon_mask"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/text_time_ment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 만큼 착용"
+        android:textSize="32dp"
+        app:layout_constraintLeft_toRightOf = "@id/text_time_used"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_time_used"
+        app:layout_constraintBottom_toBottomOf="@id/text_time_used"
+        />
+
+    <Button
+        android:id="@+id/button_exiting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="나가기"
+        android:textSize="60dp"
+        android:gravity="center"
+        android:background="@drawable/view_circle"
+        style="?android:attr/borderlessButtonStyle"
+        app:layout_constraintDimensionRatio="W, 1:1"
+        app:layout_constraintWidth_percent="0.6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_time_used"
+        app:layout_constraintBottom_toTopOf="@id/button_new_mask"
+        />
+
+    <Button
+        android:id="@+id/button_new_mask"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="교체"
+        android:textSize="22dp"
+        android:background="@drawable/plus"
+        style="?android:attr/borderlessButtonStyle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_exiting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
