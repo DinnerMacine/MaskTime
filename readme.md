@@ -1,1 +1,1 @@
-![화면 구성](이미지경로)
+![화면 구성](images/app_design.png)
