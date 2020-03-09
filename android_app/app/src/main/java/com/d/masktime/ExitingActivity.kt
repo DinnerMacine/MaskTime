@@ -15,5 +15,10 @@ class ExitingActivity : Activity() {
         var time : String = simpleDate.format(mDate)
         var rDate = simpleDate.parse(time)
 
+<<<<<<< HEAD
     }
+=======
+
+
+>>>>>>> 76d05021c199498aaa5eb416a5098a58d2181648
 }
