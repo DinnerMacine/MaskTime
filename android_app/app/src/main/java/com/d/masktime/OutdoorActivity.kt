@@ -9,12 +9,13 @@ import android.widget.Button
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class OutdoorActivity : Activity() {
     var currentTime = System.currentTimeMillis()
     var mDate = Date(currentTime)
     val simpleDate = SimpleDateFormat("yyyy/MM/dd,hh:mm:ss")
     var ScompareMe = simpleDate.format(mDate)
-
+    val timer = Timer()
     lateinit var tOut :String
     var total :Long = 0L
     lateinit var string  : String
@@ -36,6 +37,20 @@ class OutdoorActivity : Activity() {
         } else{
             test2!!
         }
+
+
+        val TT: TimerTask = object : TimerTask() {
+            override fun run() { // 반복실행할 구문
+                currentTime = System.currentTimeMillis()
+                mDate = Date(currentTime)
+                ScompareMe = simpleDate.format(mDate)
+                calculateTime()
+                button.post {
+                    button.text = string
+                }
+            }
+        }
+        timer.schedule(TT,0,60 * 1000)
 
         Log.v("total","" + total)
         Log.v("out","" + simpleDate.parse(tOut))
@@ -78,4 +93,5 @@ class OutdoorActivity : Activity() {
         val m = (used / (60 * 1000)) % 60
         string = "$h:$m"
     }
+
 }

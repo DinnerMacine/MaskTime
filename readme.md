@@ -1,0 +1,1 @@
+![화면 구성](images/app_design.png)
