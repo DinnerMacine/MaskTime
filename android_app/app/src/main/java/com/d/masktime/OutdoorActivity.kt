@@ -24,20 +24,24 @@ class OutdoorActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.outdoor_layout)
         var button = findViewById<Button>(R.id.TimeButton)
-        val test = getTime("total","")
+
+        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val test = pref.getString("total","")
         Log.v("test","$test")
         if(test != "" && test != null){
             val hNm = test.split(":")
-            total = hNm[0].toLong() * (60 * 60 * 1000) + hNm[1].toLong() * ( 60 * 1000)
+            total = hNm[0].toLong() * (60 * 60 * 1000)
+                    + hNm[1].toLong() * (60 * 1000)
+                    + hNm[2].toLong() * 1000
         }
-        val test2 = getTime("time","")
+
+        val test2 = pref.getString("time","")
         tOut = if(test2 == "" || test == null){
             Log.v("error","무언가 잘못되엇습니다!")
             ScompareMe
         } else{
             test2!!
         }
-
 
         val TT: TimerTask = object : TimerTask() {
             override fun run() { // 반복실행할 구문
@@ -50,7 +54,7 @@ class OutdoorActivity : Activity() {
                 }
             }
         }
-        timer.schedule(TT,0,60 * 1000)
+        timer.schedule(TT,0,1000)
 
         Log.v("total","" + total)
         Log.v("out","" + simpleDate.parse(tOut))
@@ -60,16 +64,19 @@ class OutdoorActivity : Activity() {
         val compareMe2 = simpleDate.parse(tOut)
         var used = total + compareMe1.time - compareMe2.time
         val h = used / (60  * 60 * 1000)
-        val m = (used / (60 * 1000))% 60
-        string = "$h:$m"
+        val m = (used / (60 * 1000)) % 60
+        val s = (used / 1000) % 60
+
+        string = "$h:$m:$s"
+        button.text = string
+
         button.setOnClickListener{
             calculateTime()
-            Log.v("saved",""+string)
             setTime("total",string)
             val next = Intent(this,ExitingActivity::class.java)
             startActivity(next)
+            finish()
         }
-        button.text = string
     }
 
     //값 저장하는 함수
@@ -80,18 +87,15 @@ class OutdoorActivity : Activity() {
         edit.apply()
     }
 
-    //값 불러오는 함수
-    fun getTime(key: String, value: String) : String? {
-        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
-        return pref.getString(key, value)
-    }
     fun calculateTime(){
         val compareMe1 = simpleDate.parse(ScompareMe)
         val compareMe2 = simpleDate.parse(tOut)
         var used = total + compareMe1.time - compareMe2.time
         val h = used / (60  * 60 * 1000)
         val m = (used / (60 * 1000)) % 60
-        string = "$h:$m"
+        val s = (used / 1000) % 60
+
+        string = "$h:$m:$s"
     }
 
 }

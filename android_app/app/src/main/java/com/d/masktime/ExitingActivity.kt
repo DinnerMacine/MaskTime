@@ -20,7 +20,9 @@ class ExitingActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exiting_layout)
-        var test = getTime("total","")
+
+        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
+        var test = pref.getString("total","")
         if(test == null || test == ""){
             total = 0
         }
@@ -57,11 +59,5 @@ class ExitingActivity : Activity() {
         val edit = pref.edit()
         edit.putString(key, value)
         edit.apply()
-    }
-
-    //값 불러오는 함수
-    fun getTime(key: String, value: String) : String? {
-        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
-        return pref.getString(key, value)
     }
 }
