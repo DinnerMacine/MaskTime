@@ -79,6 +79,11 @@ class OutdoorActivity : Activity() {
             startActivity(next)
             finish()
         }
+
+
+        val edit = pref.edit()
+        edit.putBoolean("outdoor",true)
+        edit.apply()
     }
 
     //값 저장하는 함수

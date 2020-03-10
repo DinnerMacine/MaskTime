@@ -36,9 +36,12 @@ class ExitingActivity : Activity() {
         val uH = total / (60 * 60 * 1000)
         val uM = (total / (60 * 1000)) % 60
         val uS = (total / 1000) % 60
-        text_time_used.text = "${uH/10}${uH%10}:${uM/10}${uM%10}"
+        text_time_used.text = "${uH/10}${uH%10}:${uM/10}${uM%10}:${uS/10}${uS%10}"
         var button = findViewById<Button>(R.id.button_exiting)
         button.setOnClickListener{
+            val uH = total / (60 * 60 * 1000)
+            val uM = (total / (60 * 1000)) % 60
+            val uS = (total / 1000) % 60
             getCurrentTime()
             setTime("time",settingtime)
             setTime("total","$uH:$uM:$uS")
@@ -50,8 +53,11 @@ class ExitingActivity : Activity() {
         newbutton.setOnClickListener{
             setTime("total","00:00:00")
             total = 0
-            text_time_used.text = "00:00"
+            text_time_used.text = "00:00:00"
         }
+        val edit = pref.edit()
+        edit.putBoolean("outdoor",false)
+        edit.apply()
     }
 
     fun getCurrentTime() {
