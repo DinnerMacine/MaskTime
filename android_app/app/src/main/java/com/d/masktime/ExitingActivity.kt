@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import kotlinx.android.synthetic.main.exiting_layout.*
 import java.text.SimpleDateFormat
@@ -28,7 +26,9 @@ class ExitingActivity : Activity() {
         }
         else{
             val hNm = test.split(":")
-            total = hNm[0].toLong() * (60 * 60 * 1000) + hNm[1].toLong() * (60 * 1000)
+            total = hNm[0].toLong() * (60 * 60 * 1000)
+                    + hNm[1].toLong() * (60 * 1000)
+                    + hNm[2].toLong() * 1000
         }
         val uH = total / (60 * 60 * 1000)
         val uM = (total / (60 * 1000)) % 60
@@ -36,15 +36,16 @@ class ExitingActivity : Activity() {
         var button = findViewById<Button>(R.id.button_exiting)
         button.setOnClickListener{
             getCurrentTime()
-            setTime("time",settingtime)
+            setTime("time", settingtime)
             val next = Intent(applicationContext, OutdoorActivity::class.java)
             startActivity(next)
         }
+
         var newbutton = findViewById<Button>(R.id.button_new_mask)
         newbutton.setOnClickListener{
-            setTime("total","0:0")
+            setTime("total","00:00:00")
             total = 0
-            text_time_used.text = "0:0"
+            text_time_used.text = "00:00"
         }
     }
 
