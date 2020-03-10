@@ -7,8 +7,8 @@
     tools:context=".OutdoorActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/TimeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TESTING.."
