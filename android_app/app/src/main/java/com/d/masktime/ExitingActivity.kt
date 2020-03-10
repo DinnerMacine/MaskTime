@@ -47,6 +47,18 @@ class ExitingActivity : Activity() {
             setTime("total","$uH:$uM:$uS")
             val next = Intent(applicationContext, OutdoorActivity::class.java)
             startActivity(next)
+            finish()
+        }
+
+        //background color
+        if (uH >= 6) {
+            exiting_background.setBackgroundResource(R.drawable.background_red)
+        }
+        else if (uH >= 3) {
+            exiting_background.setBackgroundResource(R.drawable.background_yellow)
+        }
+        else {
+            exiting_background.setBackgroundResource(R.drawable.background_green)
         }
 
         var newbutton = findViewById<Button>(R.id.button_new_mask)
@@ -54,6 +66,7 @@ class ExitingActivity : Activity() {
             setTime("total","00:00:00")
             total = 0
             text_time_used.text = "00:00:00"
+            exiting_background.setBackgroundResource(R.drawable.background_green)
         }
         val edit = pref.edit()
         edit.putBoolean("outdoor",false)
