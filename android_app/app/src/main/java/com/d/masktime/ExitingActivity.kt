@@ -18,33 +18,42 @@ class ExitingActivity : Activity() {
     var settingtime = simpleDate.format(mDate)
     var total = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exiting_layout)
 
         val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
         var test = pref.getString("total","")
+        Log.v("test: ","$test")
         if(test == null || test == ""){
             total = 0
         }
         else{
             val hNm = test.split(":")
-            total = hNm[0].toLong() * (60 * 60 * 1000) + hNm[1].toLong() * (60 * 1000)
+            Log.v("hNm:","$hNm")
+            total = (hNm[0].toLong() * (60 * 60 * 1000)
+                + hNm[1].toLong() * (60 * 1000)
+                + hNm[2].toLong() * 1000)
         }
+        Log.v("total:","$total")
         val uH = total / (60 * 60 * 1000)
         val uM = (total / (60 * 1000)) % 60
-        text_time_used.text = "$uH:$uM"
+        val uS = (total / 1000) % 60
+        text_time_used.text = "${uH/10}${uH%10}:${uM/10}${uM%10}"
         var button = findViewById<Button>(R.id.button_exiting)
         button.setOnClickListener{
             getCurrentTime()
             setTime("time",settingtime)
+            setTime("total","$uH:$uM:$uS")
+            Log.v("total: ","$uH:$uM:$uS")
             val next = Intent(applicationContext, OutdoorActivity::class.java)
             startActivity(next)
         }
         var newbutton = findViewById<Button>(R.id.button_new_mask)
         newbutton.setOnClickListener{
-            setTime("total","0:0")
+            setTime("total","00:00:00")
             total = 0
-            text_time_used.text = "0:0"
+            text_time_used.text = "00:00"
         }
     }
 

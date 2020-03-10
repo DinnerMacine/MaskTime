@@ -30,9 +30,9 @@ class OutdoorActivity : Activity() {
         Log.v("test","$test")
         if(test != "" && test != null){
             val hNm = test.split(":")
-            total = hNm[0].toLong() * (60 * 60 * 1000)
+            total = (hNm[0].toLong() * (60 * 60 * 1000)
                     + hNm[1].toLong() * (60 * 1000)
-                    + hNm[2].toLong() * 1000
+                    + hNm[2].toLong() * 1000)
         }
 
         val test2 = pref.getString("time","")
@@ -67,12 +67,14 @@ class OutdoorActivity : Activity() {
         val m = (used / (60 * 1000)) % 60
         val s = (used / 1000) % 60
 
-        string = "$h:$m:$s"
+        string = "${h/10}${h%10}:${m/10}${m%10}:${s/10}${s%10}"
+        Log.v("test","$string")
         button.text = string
 
         button.setOnClickListener{
             calculateTime()
             setTime("total",string)
+            TT.cancel()
             val next = Intent(this,ExitingActivity::class.java)
             startActivity(next)
             finish()
@@ -91,11 +93,12 @@ class OutdoorActivity : Activity() {
         val compareMe1 = simpleDate.parse(ScompareMe)
         val compareMe2 = simpleDate.parse(tOut)
         var used = total + compareMe1.time - compareMe2.time
+        Log.v("used: ", "$used")
         val h = used / (60  * 60 * 1000)
         val m = (used / (60 * 1000)) % 60
         val s = (used / 1000) % 60
 
-        string = "$h:$m:$s"
+        string = "${h/10}${h%10}:${m/10}${m%10}:${s/10}${s%10}"
     }
 
 }
