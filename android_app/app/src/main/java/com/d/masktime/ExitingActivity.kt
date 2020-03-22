@@ -12,7 +12,7 @@ import java.util.*
 class ExitingActivity : Activity() {
     var time = System.currentTimeMillis()
     var mDate = Date(time)
-    val simpleDate = SimpleDateFormat("yyyy/MM/dd,hh:mm:ss")
+    val simpleDate = SimpleDateFormat("yyyy/MM/dd,HH:mm:ss")
     var settingtime = simpleDate.format(mDate)
     var total = 0L
     override fun onCreate(savedInstanceState: Bundle?) {

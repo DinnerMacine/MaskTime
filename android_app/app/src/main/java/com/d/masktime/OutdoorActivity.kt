@@ -10,12 +10,15 @@ import kotlinx.android.synthetic.main.exiting_layout.*
 import kotlinx.android.synthetic.main.outdoor_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.hours
+import kotlin.time.minutes
+import kotlin.time.seconds
 
 
 class OutdoorActivity : Activity() {
     var currentTime = System.currentTimeMillis()
     var mDate = Date(currentTime)
-    val simpleDate = SimpleDateFormat("yyyy/MM/dd,hh:mm:ss")
+    val simpleDate = SimpleDateFormat("yyyy/MM/dd,HH:mm:ss")
     var ScompareMe = simpleDate.format(mDate)
     val timer = Timer()
     lateinit var tOut :String
@@ -43,14 +46,17 @@ class OutdoorActivity : Activity() {
             test2!!
         }
 
+
         val compareMe1 = simpleDate.parse(ScompareMe)
         val compareMe2 = simpleDate.parse(tOut)
-        var used = total + compareMe1.time - compareMe2.time
-        val h = used / (60  * 60 * 1000)
-        val m = (used / (60 * 1000)) % 60
-        val s = (used / 1000) % 60
+        var timeStamp = total + compareMe1.time - compareMe2.time
+        var used = Date(timeStamp)
 
-        string = "${h/10}${h%10}:${m/10}${m%10}:${s/10}${s%10}"
+        @UseExperimental(kotlin.time.ExperimentalTime::class) val h = used.time.hours.toString()
+        @UseExperimental(kotlin.time.ExperimentalTime::class) val m = used.time.minutes.toString()
+        @UseExperimental(kotlin.time.ExperimentalTime::class) val s = used.time.seconds.toString()
+
+        string = h + m + s
         button.text = string
 
         val TT: TimerTask = object : TimerTask() {
@@ -61,7 +67,6 @@ class OutdoorActivity : Activity() {
                 calculateTime()
                 button.post {
                     button.text = string
-                    Log.d("TT", string)
                 }
             }
         }
