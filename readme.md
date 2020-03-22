@@ -1,5 +1,5 @@
 ## Ver.1
-Basic functions
+### -Basic functions
 ![화면 구성](images/app_design.png)
 - 3시간, 6시간 경과 시 배경 색 변화.
 - Shared preference 사용, 앱 완전히 종료 후 다시 들어와도 계속 카운트 다운 유지.
